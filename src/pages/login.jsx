@@ -1,8 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-
-import { useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
+import { useRef, useState, useEffect } from 'react'
 
 import { AuthForm } from '../components/common/Global'
 import { SplitElement } from '../components/common/SplitElement'
@@ -10,18 +9,10 @@ import { WrapNextImage } from '../components/Header/StyledHeader'
 
 const Login = () => {
   const [passwordType, setPasswordType] = useState('password')
-  const [, setPasswordInput] = useState('')
   const rememberMe = useRef(null)
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors }
-  } = useForm()
+  const router = useRouter()
+  const errorString = router.query.error
 
-  const handlePasswordChange = evnt => {
-    setPasswordInput(evnt.target.value)
-  }
   const togglePassword = () => {
     if (passwordType === 'password') {
       setPasswordType('text')
@@ -29,9 +20,19 @@ const Login = () => {
     }
     setPasswordType('password')
   }
-  const onSubmit = data => {
-    console.log(data)
+
+  useEffect(() => {
+    if (errorString) {
+      alert('Login failed!!')
+      window.history.pushState({}, document.title, '/login')
+    }
+  }, [errorString])
+
+  const handleSubmitForm = e => {
+    e.preventDefault()
+    e.target.submit()
   }
+
   return (
     <AuthForm className="flex flex-col items-center justify-center">
       <h1 className="font-black text-head1 text-gray">Sign In</h1>
@@ -64,7 +65,7 @@ const Login = () => {
           </button>
         </div>
         <SplitElement />
-        <form className="" onSubmit={handleSubmit(onSubmit)}>
+        <form action="/api/login" method="POST" onSubmit={handleSubmitForm}>
           <div className="relative">
             <div className="absolute top-1/2 -translate-y-1/2 left-5">
               <WrapNextImage className="w-4 h-4">
@@ -76,19 +77,9 @@ const Login = () => {
               </WrapNextImage>
             </div>
             <input
-              type="email"
+              type="text"
+              name="email"
               className="border border-gray/20 rounded-[10px] w-full h-[52px] pl-[46px] focus:outline-none placeholder:text-14 placeholder:font-medium placeholder:text-gray/60"
-              {...register('email', {
-                required: {
-                  value: true,
-                  message: 'You need to specify a valid email address'
-                },
-                pattern: {
-                  value:
-                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: "I think I said _valid_, didn't I?"
-                }
-              })}
               placeholder="Your Email"
             />
           </div>
@@ -119,17 +110,16 @@ const Login = () => {
             </div>
             <input
               type={passwordType}
+              name="password"
               className="border border-gray/20 rounded-[10px] w-full h-[52px] pl-[46px] focus:outline-none placeholder:text-14 placeholder:font-medium placeholder:text-gray/60 my-5"
-              {...register('password')}
               placeholder="Input Password"
-              onChange={handlePasswordChange}
             />
           </div>
           <div className="px-5 flex justify-between items-center flex-row">
             <div className="gap-[10px] cursor-pointer flex items-center">
               <input
                 type="checkbox"
-                className="w-4 h-4 cursor-pointer checked:bg-primary hover:unset"
+                className="w-4 h-4 cursor-pointer checked:bg-primary focus:outline-none"
                 id="remember-check"
                 ref={rememberMe}
               />
@@ -141,9 +131,7 @@ const Login = () => {
               </label>
             </div>
             <Link href="/forgot-password">
-              <a className="text-gray text-14 font-medium">
-                Forgot Password?
-              </a>
+              <a className="text-gray text-14 font-medium">Forgot Password?</a>
             </Link>
           </div>
           <button

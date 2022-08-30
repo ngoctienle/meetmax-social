@@ -1,7 +1,7 @@
 {
-  "name": "travelner-b2b",
+  "name": "meetmax-social-media",
   "version": "1.0.0",
-  "description": "Travelner B2B Version",
+  "description": "The Social Network",
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
@@ -9,13 +9,18 @@
     "lint": "next lint",
     "start": "next start"
   },
-  "author": "Travelner Team",
+  "author": "ngoctienle<hi@bravethinking.io>",
   "license": "MIT",
   "dependencies": {
+    "atob": "^2.1.2",
+    "cookie": "^0.5.0",
+    "es6-promise": "^4.2.8",
+    "isomorphic-fetch": "^3.0.0",
+    "js-cookie": "^3.0.1",
     "next": "^12.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.34.2",
+    "react-hooks-global-state": "^2.0.0",
     "styled-components": "^5.3.3",
     "twin.macro": "^2.8.2"
   },
