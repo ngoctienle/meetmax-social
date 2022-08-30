@@ -1,9 +1,7 @@
-import { WrapSideBarRight } from "./StyledSideBarRight"
+import { WrapSideBarRight } from './StyledSideBarRight'
 
 const SideBarRight = () => {
-  return (
-    <WrapSideBarRight>SideBarRight</WrapSideBarRight>
-  )
+  return <WrapSideBarRight>SideBarRight</WrapSideBarRight>
 }
 
 export default SideBarRight
