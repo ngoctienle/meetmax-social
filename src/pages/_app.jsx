@@ -5,7 +5,7 @@ import App from 'next/app'
 import Head from 'next/head'
 import { useMemo } from 'react'
 import es6Promise from 'es6-promise'
-import userService from "../service/userService";
+import userService from '../service/userService'
 import { getTokenSSRAndCSR } from '../helpers'
 import { useGlobalState } from '../states'
 import { Header } from '../components'

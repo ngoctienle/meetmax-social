@@ -27,6 +27,7 @@ module.exports = {
         gray: '#4E5D78'
       },
       opacity: {
+        3: '.03',
         40: '.4'
       },
       borderWidth: {
