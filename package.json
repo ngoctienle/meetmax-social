@@ -1,0 +1,40 @@
+{
+  "name": "travelner-b2b",
+  "version": "1.0.0",
+  "description": "Travelner B2B Version",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && next export",
+    "prettier": "prettier --write .",
+    "lint": "next lint",
+    "start": "next start"
+  },
+  "author": "Travelner Team",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^12.2.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.34.2",
+    "styled-components": "^5.3.3",
+    "twin.macro": "^2.8.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.8",
+    "babel-plugin-styled-components": "^1.13.3",
+    "babel-plugin-twin": "^1.0.2",
+    "eslint": "^8.21.0",
+    "eslint-config-next": "^12.2.4",
+    "postcss": "^8.4.16",
+    "prettier": "^2.7.1",
+    "tailwindcss": "^3.1.8"
+  },
+  "babelMacros": {
+    "twin": {
+      "styled": {
+        "import": "default",
+        "from": "styled-components"
+      }
+    }
+  }
+}
