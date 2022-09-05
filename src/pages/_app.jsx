@@ -10,18 +10,22 @@ import { getTokenSSRAndCSR } from '../helpers'
 import { useGlobalState } from '../states'
 import { Header } from '../components'
 
+import { ApolloProvider } from '@apollo/client'
+import { useApollo } from '../libs/apollo-client'
+
 es6Promise.polyfill()
 
 const MyApp = ({ Component, pageProps }) => {
   const [, setCurrentUser] = useGlobalState('currentUser')
   const [, setToken] = useGlobalState('token')
+  const apolloClient = useApollo(pageProps.initialApolloState)
 
   useMemo(() => {
     setToken(pageProps.token)
     setCurrentUser(pageProps.userInfo)
   }, [])
   return (
-    <div className="root">
+    <ApolloProvider client={apolloClient}>
       <Head>
         <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -41,7 +45,7 @@ const MyApp = ({ Component, pageProps }) => {
       <main>
         <Component {...pageProps} />
       </main>
-    </div>
+    </ApolloProvider>
   )
 }
 

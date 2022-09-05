@@ -3,6 +3,12 @@
   "plugins": [
     ["styled-components", { "ssr": true }],
     ["babel-plugin-twin", { "debug": false }],
-    "babel-plugin-macros"
+    "babel-plugin-macros",
+    [
+      "babel-plugin-graphql-tag",
+      {
+          "strip": true,
+      }
+  ]
   ]
 }

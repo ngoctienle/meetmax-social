@@ -12,9 +12,12 @@
   "author": "ngoctienle<hi@bravethinking.io>",
   "license": "MIT",
   "dependencies": {
+    "@apollo/client": "^3.6.9",
     "atob": "^2.1.2",
     "cookie": "^0.5.0",
     "es6-promise": "^4.2.8",
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6",
     "isomorphic-fetch": "^3.0.0",
     "js-cookie": "^3.0.1",
     "next": "^12.2.5",
@@ -26,6 +29,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.8",
+    "babel-plugin-graphql-tag": "^3.3.0",
     "babel-plugin-styled-components": "^1.13.3",
     "babel-plugin-twin": "^1.0.2",
     "eslint": "^8.21.0",

@@ -1,17 +1,32 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState } from 'react'
 
 import { AuthForm } from '../components/common/Global'
 import { SplitElement } from '../components/common/SplitElement'
 import { WrapNextImage } from '../components/Header/StyledHeader'
 
+import { useMutation } from '@apollo/client'
+import LOGIN_GQL from '../graphql/Login.graphql'
+
+const loginData = {
+  email: '',
+  password: ''
+}
+
 const Login = () => {
+  const [initData, setInitData] = useState(loginData)
   const [passwordType, setPasswordType] = useState('password')
   const rememberMe = useRef(null)
-  const router = useRouter()
-  const errorString = router.query.error
+  const [generateCustomerToken, data] = useMutation(LOGIN_GQL)
+
+  const onChangeData = key => e => {
+    const value = e.target.value
+    setInitData({
+      ...initData,
+      [key]: value
+    })
+  }
 
   const togglePassword = () => {
     if (passwordType === 'password') {
@@ -21,16 +36,12 @@ const Login = () => {
     setPasswordType('password')
   }
 
-  useEffect(() => {
-    if (errorString) {
-      alert('Login failed!!')
-      window.history.pushState({}, document.title, '/login')
-    }
-  }, [errorString])
-
   const handleSubmitForm = e => {
     e.preventDefault()
-    e.target.submit()
+    generateCustomerToken({
+      variables: { email: initData.email, password: initData.password }
+    })
+    console.log(data)
   }
 
   return (
@@ -65,7 +76,7 @@ const Login = () => {
           </button>
         </div>
         <SplitElement />
-        <form action="/api/login" method="POST" onSubmit={handleSubmitForm}>
+        <form onSubmit={handleSubmitForm}>
           <div className="relative">
             <div className="absolute top-1/2 -translate-y-1/2 left-5">
               <WrapNextImage className="w-4 h-4">
@@ -79,6 +90,7 @@ const Login = () => {
             <input
               type="text"
               name="email"
+              onChange={onChangeData('email')}
               className="border border-gray/20 rounded-[10px] w-full h-[52px] pl-[46px] focus:outline-none placeholder:text-14 placeholder:font-medium placeholder:text-gray/60"
               placeholder="Your Email"
             />
@@ -110,6 +122,7 @@ const Login = () => {
             </div>
             <input
               type={passwordType}
+              onChange={onChangeData('password')}
               name="password"
               className="border border-gray/20 rounded-[10px] w-full h-[52px] pl-[46px] focus:outline-none placeholder:text-14 placeholder:font-medium placeholder:text-gray/60 my-5"
               placeholder="Input Password"

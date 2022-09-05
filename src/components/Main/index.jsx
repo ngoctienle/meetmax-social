@@ -1,9 +1,7 @@
-import { MainWrapper } from "./StyledMain"
+import { MainWrapper } from './StyledMain'
 
 const Main = () => {
-  return (
-    <MainWrapper>Main</MainWrapper>
-  )
+  return <MainWrapper>Main</MainWrapper>
 }
 
 export default Main

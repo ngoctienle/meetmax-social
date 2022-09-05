@@ -6,7 +6,7 @@ const Home = () => {
     <WrapMain>
       <SideBarLeft />
       <Main />
-      <SideBarRight/>
+      <SideBarRight />
     </WrapMain>
   )
 }
